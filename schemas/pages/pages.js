@@ -21,6 +21,10 @@ export default {
           name: 'colors',
           title: 'Colors',
         },
+        {
+            name: 'settings',
+            title: 'Settings',
+          },
         
     ],
     fields: [
@@ -43,6 +47,12 @@ export default {
             title: "Page colors",
             type: "pageColors",
             group: 'colors',
+        },
+        {
+            name: "pageSettings",
+            title: "Page settings",
+            type: "pageSettings",
+            group: 'settings',
         },
     ],
 }

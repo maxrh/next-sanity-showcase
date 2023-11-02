@@ -7,11 +7,11 @@ export const ColorContext = createContext()
 
 const ColorContextProvider = ({ currentPath, pageColors, children }) => {
 
-    console.log('pageColors context', currentPath, pageColors)
+    console.log(currentPath, 'context')
 
 
     return (
-        <ColorContext.Provider value={{ pageColors }}>
+        <ColorContext.Provider value={{ pageColors, currentPath }}>
             {children}
         </ColorContext.Provider>
     )
