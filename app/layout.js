@@ -1,10 +1,9 @@
 import './globals.css'
 import IBMPlex from 'next/font/local'
-import MaterialSymbols from 'next/font/local'
 import { headers } from "next/headers"
-import ColorContextProvider from './context/colorContext'
-import SiteHeader from './components/site-header'
-import SiteFooter from './components/site-footer'
+import PageContextProvider from './context/PageContext'
+import SiteHeader from './components/SiteHeader'
+import SiteFooter from './components/SiteFooter'
 import { getCurrentPage } from './sanity/sanity.query'
 
 const ibmplex = IBMPlex({ 
@@ -13,12 +12,12 @@ const ibmplex = IBMPlex({
     variable: '--font-ibmplex',
 })
 
-const materialSymbols = MaterialSymbols({ 
-    src: '/fonts/MaterialSymbolsSharp[FILL,GRAD,opsz,wght].woff2',
-    style: 'normal',
-    variable: '--font-symbols',
-    display: 'block',
-})
+// const materialSymbols = MaterialSymbols({ 
+//     src: '/fonts/MaterialSymbolsSharp[FILL,GRAD,opsz,wght].woff2',
+//     style: 'normal',
+//     variable: '--font-symbols',
+//     display: 'block',
+// })
 
 export const metadata = {
     title: 'Next-Sanity Showcase',
@@ -29,22 +28,20 @@ export default async function RootLayout({ children }) {
     const headersList = headers()
     const pathname = headersList.get('x-url') || ""
     const isStudioRoute = pathname.startsWith('/studio')
-
-    const data = await getCurrentPage(pathname)
-    const theme = data?.pageColors.themeselector || null
-
+    const serverCurrentPage = await getCurrentPage(pathname)
+    
     if (isStudioRoute) { return <html lang="en"><body>{children}</body></html> }
 
     return (
         <html lang="en" className={`font-light`} suppressHydrationWarning>
-            <body className={`${ibmplex.variable} font-sans ${materialSymbols.variable}`}>
-                <ColorContextProvider>
+            <body className={`${ibmplex.variable} font-sans`}>
+                <PageContextProvider serverCurrentPage={serverCurrentPage}>
                         <SiteHeader />
-                            <main className='main min-h-screen w-full '>
+                            <main className='main min-h-screen w-full'>
                                 {children}
                             </main>
                         <SiteFooter />
-                </ColorContextProvider>
+                </PageContextProvider>
             </body>
         </html>
     )

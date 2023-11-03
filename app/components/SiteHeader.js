@@ -1,7 +1,7 @@
 
 import Link from "next/link"
 import LogoSvg from "./ui/logoSvg"
-import MainNav from "./ui/main-nav"
+import MainNav from "./ui/MainNav"
 
 export default function SiteHeader() {
    

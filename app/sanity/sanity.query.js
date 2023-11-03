@@ -21,7 +21,7 @@ export const MENU_ITEMS_QUERY = groq`*[_type == "pages" && pageSettings.showInMe
     },
 }`
 
-export const PAGE_COLORS_QUERY = groq`*[_type == "pages"] {
+export const PAGE_LAYOUT_QUERY = groq`*[_type == "pages"] {
     metadata {
         title,
         slug { 
@@ -33,6 +33,13 @@ export const PAGE_COLORS_QUERY = groq`*[_type == "pages"] {
         menuColor { hex },
         primaryColor { hex },
         backgroundColor { hex },
+    },
+    content {
+        header,
+        featuredImage {
+            alt,
+            "imageUrl": asset->url
+        }
     },
 }`
 

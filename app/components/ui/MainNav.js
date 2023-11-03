@@ -1,7 +1,7 @@
 "use client"
 
 import { MENU_ITEMS_QUERY, sanityFetcher } from "@/app/sanity/sanity.query"
-import { ColorContext } from "@/app/context/colorContext"
+import { PageContext } from "@/app/context/PageContext"
 import { useContext } from "react"
 import { motion } from "framer-motion"
 import useSWR from 'swr'
@@ -9,12 +9,12 @@ import Link from "next/link"
 
 export default function MainNav() {
 
-    const { currentPageColors } = useContext(ColorContext)
+    const { currentPageData } = useContext(PageContext)
 
     const { data, error } = useSWR(MENU_ITEMS_QUERY, sanityFetcher)
     if (error) {console.log('error', error)}
 
-    const activeItem = data?.find(item => item.metadata.slug.current === currentPageColors?.slug || currentPageColors?.slug.startsWith(`${item.metadata.slug.current}/`))
+    const activeItem = data?.find(item => item.metadata.slug.current === currentPageData?.slug || currentPageData?.slug.startsWith(`${item.metadata.slug.current}/`))
 
     
     const containerVariant = {
@@ -57,46 +57,59 @@ export default function MainNav() {
                 >
                        {data.map((item, index) => {
                             const isActivePath = activeItem === item
-                            const activeClasses = isActivePath ? 'opacity-100 top-10' : 'opacity-0 -top-10 group-hover:-top-6 group-hover:opacity-100'
+                            const activeClasses = isActivePath ? 'opacity-100 translate-y-8' : 'opacity-0 -translate-y-12 group-hover:-translate-y-7 group-hover:opacity-100'
 
                             return (
                                                     
                                 <motion.div 
                                     key={index} 
-                                    className="flex items-stretch relative  group"
+                                    className="flex items-stretch relative group"
                                     variants={itemVariant}
                                     animate={{ 
-                                        color: currentPageColors?.menuColor || (currentPageColors?.theme === 'dark' ? 'var(--background-hex)' : 'var(--foreground-hex)'),
                                         transition: { ...transitionConfig }
                                     }}
                                 
                                 >
-                                    <Link href={`${item.metadata.slug.current}`} className={`flex items-center ml-1 px-4 text-2xl font-bold leading-none`}>
+                                    <Link 
+                                        href={`${item.metadata.slug.current}`} 
+                                        className={`flex items-center ml-1 px-4 text-2xl font-bold leading-none transition-colors duration-200 ease-in-out`}
+                                        style={{ color: currentPageData?.menuColor || (currentPageData?.theme === 'dark' ? 'var(--background-hex-static)' : 'var(--foreground-hex-static)') }}
+                                    >
                                         <span className="relative z-10">{item.metadata.title}</span>
-
-                                        <div className={`absolute mx-auto left-0 right-0 flex items-center justify-center pointer-events-none ${activeClasses} transition-all`}>
-                                            <i className="symbol z-10" style={{ fontVariationSettings: `'wght' 400`, fontSize: '32px' }}>arrow_drop_down</i>
+                                        <div className={`absolute mx-auto left-0 right-0 flex items-center justify-center pointer-events-none ${activeClasses} transition-all duration-200 ease-in-out`}>
+                                           
+                                            <svg 
+                                                xmlns="http://www.w3.org/2000/svg" 
+                                                height="32"
+                                                width="32"
+                                                viewBox="0 -960 960 960" 
+                                                className="absolute z-0 transition-fill duration-200 ease-in-out"
+                                                style={{ fill: currentPageData?.menuColor || (currentPageData?.theme === 'dark' ? 'var(--background-hex-static)' : 'var(--foreground-hex-static)') }}
+                                            ><path d="M480-360 280-560h400L480-360Z"/></svg>
                                         </div>
                                     </Link>
                                 </motion.div>
                             )
                     })}
 
-                    <motion.button
-                        className={`group relative ml-4 flex items-center justify-center w-10 h-full`}
+                    <motion.div 
+                        className="group relative ml-4 flex items-stretch group w-10 h-full"
                         variants={itemVariant}
                         animate={{ 
-                            color: currentPageColors?.menuColor || (currentPageColors?.theme === 'dark' ? 'var(--background-hex)' : 'var(--foreground-hex)'),
                             transition: { ...transitionConfig }
                         }}
                     >
-                        <i 
-                            className="symbol z-10" 
-                            style={{ fontVariationSettings: `'wght' 700`, fontSize: '28px' }}
-                        >
-                            search
-                        </i>
-                    </motion.button>
+                        <button className={`flex items-center justify-center w-full h-full`}> 
+                            <svg 
+                                xmlns="http://www.w3.org/2000/svg" 
+                                width="28"
+                                height="28" 
+                                viewBox="0 -960 960 960" 
+                                className="transition-fill duration-200 ease-in-out"
+                                style={{ fill: currentPageData?.menuColor || (currentPageData?.theme === 'dark' ? 'var(--background-hex-static)' : 'var(--foreground-hex-static)') }}
+                            ><path d="M782-82 523-341q-29 20-67.5 32T372-297q-118 0-200.5-82.5T89-580q0-118 82.5-200.5T372-863q118 0 200.5 82.5T655-580q0 46-12 83.5T611-431l260 261-89 88ZM372-423q66 0 111.5-45.5T529-580q0-66-45.5-111.5T372-737q-66 0-111.5 45.5T215-580q0 66 45.5 111.5T372-423Z"/></svg>
+                        </button>
+                    </motion.div>
                 </motion.div>
             
             }

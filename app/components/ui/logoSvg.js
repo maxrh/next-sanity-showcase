@@ -1,39 +1,23 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { ColorContext } from "@/app/context/colorContext"
+import { PageContext } from "@/app/context/PageContext"
 import { useContext } from "react"
 
 export default function LogoSvg() {
-	const { currentPageColors } = useContext(ColorContext)
-
-    const fillValue = currentPageColors?.menuColor || (currentPageColors?.theme === 'dark' ? 'var(--background-hex)' : 'var(--foreground-hex)');
+	const { currentPageData } = useContext(PageContext)
 
     return (
-        <motion.svg 
-			key={fillValue}
+        <svg 
             version="1.1" 
             id="Layer_1" 
             xmlns="http://www.w3.org/2000/svg" 
             x="0px" 
             y="0px" 
             viewBox="0 0 800 300" 
-            className={`w-full`}
-            initial={{ 
-                opacity: 0,
-                y: -10,
-                fill: fillValue
-            }}
-            animate={{ 
-                opacity: 1,
-                y: 0,
-                fill: fillValue
-            }}
-            transition={{ 
-                type: "tween", 
-                ease: "easeInOut",
-                duration: .15,
-            }}
+            className={`w-full transition duration-500 ease-in-out`}
+			style={{ 
+				fill: currentPageData?.menuColor || (currentPageData?.theme === 'dark' ? 'var(--background-hex-static)' : 'var(--foreground-hex-static)'),
+			}}
         >
 
 <path d="M195.43,254.36c-1.15-2.97,1.58-7.28,0.87-10.63c-1.08-5.08-2.1-10.06-1.59-15.21c0.68-6.83-1.8-13.88,1.49-20.51
@@ -108,7 +92,7 @@ export default function LogoSvg() {
 	c2.4,2.33,3.04,5.29,3.85,8.47c1.49,5.82,4.06,11.37,6.11,17.05c3.29,9.12,7.19,18.05,8.56,27.78c0.32,2.28,0.99,4.64,2.06,6.67
 	c3.63,6.9,4.3,14.8,7.54,21.8C537.34,146.49,536.55,147.65,533.75,147.71z"/>
            
-        </motion.svg>
+        </svg>
 
             
             

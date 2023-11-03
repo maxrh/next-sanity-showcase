@@ -22,7 +22,7 @@ export async function generateStaticParams() {
         }`
     )
 
-    console.log(data, 'data');
+    // console.log(data, 'data');
 
     const paramsArray = data.map(item => {
         const segments = item.slug.split('/').filter(Boolean)
