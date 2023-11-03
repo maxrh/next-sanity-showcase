@@ -4,12 +4,13 @@ import { groq } from "next-sanity"
 
 export default async function Page({ params }) {
     const pageData = await getCurrentPage('/' + params.slug.join('/'))
-    const pageTheme = pageData?.pageColors.themeselector || null
 
 
     return (
-        <div className="flex flex-col items-center justify-between min-h-screen w-full pt-[120px]">
-            {/* <p>{pageData && pageData.metadata.title}</p> */}
+        <div className={`flex flex-col items-center justify-between min-h-screen w-full pt-[120px]`}>
+            {pageData &&  
+                <p>{pageData.metadata.title}</p> 
+            }
         </div>
     )
 }

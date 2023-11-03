@@ -43,7 +43,10 @@ const ColorContextProvider = ({ children }) => {
     return (
         <ColorContext.Provider value={{ currentPageColors }}>
             <div className={`page-container transition-colors duration-500 ease-in-out`}
-                style={{ backgroundColor: currentPageColors?.backgroundColor?.hex || (currentPageColors?.theme === 'dark' ? 'var(--foreground-hex)' : 'var(--background-hex)') }}
+                style={{ 
+                    backgroundColor: currentPageColors?.backgroundColor?.hex || (currentPageColors?.theme === 'dark' ? 'var(--foreground-hex)' : 'var(--background-hex)'), 
+                    color: currentPageColors?.theme === 'dark' ? 'var(--background-hex)' : 'var(--foreground-hex)',
+                }}
             >
                 {children}
             
