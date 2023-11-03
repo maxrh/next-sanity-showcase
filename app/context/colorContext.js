@@ -2,9 +2,8 @@
 
 import { createContext, useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
-import { useTheme, ThemeProvider } from 'next-themes'
-import useSWR from 'swr'
 import { PAGE_COLORS_QUERY, sanityFetcher  } from '../sanity/sanity.query'
+import useSWR from 'swr'
 
 export const ColorContext = createContext()
 
@@ -39,16 +38,15 @@ const ColorContextProvider = ({ children }) => {
     }, [pathname, data])
     
 
-    console.log('currentPageTheme', currentPageColors);
+    // console.log('currentPageTheme', currentPageColors);
 
     return (
         <ColorContext.Provider value={{ currentPageColors }}>
             <div className={`page-container transition-colors duration-500 ease-in-out`}
-                style={{ backgroundColor: currentPageColors?.backgroundColor?.hex || currentPageColors?.theme === 'dark' ? 'var(--foreground-hex)' : 'var(--background-hex)' }}
+                style={{ backgroundColor: currentPageColors?.backgroundColor?.hex || (currentPageColors?.theme === 'dark' ? 'var(--foreground-hex)' : 'var(--background-hex)') }}
             >
-                <div className={`theme-control ${currentPageColors?.theme}`}>
-                    {children}
-                </div>
+                {children}
+            
             </div>
         </ColorContext.Provider>
     )

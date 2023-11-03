@@ -6,9 +6,12 @@ import { useContext } from "react"
 
 export default function LogoSvg() {
 	const { currentPageColors } = useContext(ColorContext)
-    
+
+    const fillValue = currentPageColors?.menuColor || (currentPageColors?.theme === 'dark' ? 'var(--background-hex)' : 'var(--foreground-hex)');
+
     return (
         <motion.svg 
+			key={fillValue}
             version="1.1" 
             id="Layer_1" 
             xmlns="http://www.w3.org/2000/svg" 
@@ -19,12 +22,12 @@ export default function LogoSvg() {
             initial={{ 
                 opacity: 0,
                 y: -10,
-                fill: currentPageColors?.menuColor || (currentPageColors?.theme === 'dark' ? 'var(--background-hex)' : 'var(--foreground-hex)')
+                fill: fillValue
             }}
             animate={{ 
                 opacity: 1,
                 y: 0,
-                fill: currentPageColors?.menuColor || (currentPageColors?.theme === 'dark' ? 'var(--background-hex)' : 'var(--foreground-hex)')
+                fill: fillValue
             }}
             transition={{ 
                 type: "tween", 
