@@ -18,7 +18,7 @@ export default async function Home() {
             {pages && pages.map((page) => (
                 <div key={page._id} className='flex flex-col items-center justify-center'>
                     <h1 className="text-3xl font-bold tracking-tight sm:text-5xl mb-6 lg:leading-[3.7rem] leading-tight lg:min-w-[700px] min-w-full">
-                        {page.content.header}
+                       blah
                     </h1>
                 </div>
 

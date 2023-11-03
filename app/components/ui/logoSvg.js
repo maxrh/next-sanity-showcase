@@ -1,11 +1,11 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ColorContext } from 'app/context/colorContext'
-import { useContext } from 'react'
+import { ColorContext } from "@/app/context/colorContext"
+import { useContext } from "react"
 
 export default function LogoSvg() {
-    const { pageColors } = useContext(ColorContext)
+	const { currentPageColors } = useContext(ColorContext)
     
     return (
         <motion.svg 
@@ -19,12 +19,12 @@ export default function LogoSvg() {
             initial={{ 
                 opacity: 0,
                 y: -10,
-                fill: 'black',
+                fill: currentPageColors?.menuColor || (currentPageColors?.theme === 'dark' ? 'var(--background-hex)' : 'var(--foreground-hex)')
             }}
             animate={{ 
                 opacity: 1,
                 y: 0,
-                fill: 'black',
+                fill: currentPageColors?.menuColor || (currentPageColors?.theme === 'dark' ? 'var(--background-hex)' : 'var(--foreground-hex)')
             }}
             transition={{ 
                 type: "tween", 
