@@ -6,6 +6,22 @@ export const sanityFetcher = async (query) => {
     return response
 }
 
+export const pathSanityFetcher = async ({ query, basePath }) => {
+    const response = await client.fetch(query, { basePath })
+    return response;
+}
+
+export const SUBPAGES_QUERY = groq`
+  *[_type == "pages" && metadata.slug.current match $basePath] {
+        metadata {
+            title,
+            slug { 
+                current
+            }
+        },
+    }
+`;
+
 export const MENU_ITEMS_QUERY = groq`*[_type == "pages" && pageSettings.showInMenu == true] {
     metadata {
         title,

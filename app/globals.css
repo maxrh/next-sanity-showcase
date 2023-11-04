@@ -132,7 +132,7 @@ i.symbol-light {
 
 
 .mask-image {
-    mask-image: linear-gradient(#000, transparent);
+    mask-image: linear-gradient(to bottom, #000, transparent);
     mask-size: 100%;
 }
 

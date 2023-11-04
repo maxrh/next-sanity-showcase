@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import LogoSvg from "./ui/logoSvg"
+import LogoSvg from "./ui/LogoSvg"
 
 export default function SiteFooter() {
 

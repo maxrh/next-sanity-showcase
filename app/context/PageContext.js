@@ -10,6 +10,7 @@ export const PageContext = createContext()
 const PageContextProvider = ({ serverCurrentPage, children }) => {
     const pathname = usePathname()
     const [currentPageData, setCurrentPageData] = useState({
+        title: serverCurrentPage?.metadata.title || null,
         slug: serverCurrentPage?.metadata.slug.current || null,
         theme: serverCurrentPage?.pageColors.themeselector || null,
         menuColor: serverCurrentPage?.pageColors.menuColor?.hex || null,
@@ -21,11 +22,13 @@ const PageContextProvider = ({ serverCurrentPage, children }) => {
     
     const { data, error } = useSWR(PAGE_LAYOUT_QUERY, sanityFetcher)
     if (error) {console.log('error', error)}
+    
 
     useEffect(() => {
         if (!localStorage.getItem('pageData') && data) {
             const pageData = data.map(item => {
                 return {
+                    title: item.metadata.title || null,
                     slug: item.metadata.slug.current || null,
                     theme: item.pageColors.themeselector || null,
                     menuColor: item.pageColors.menuColor?.hex || null,
