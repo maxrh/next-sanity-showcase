@@ -1,17 +1,8 @@
-"use client"
-
 import Link from "next/link"
-import { PageContext } from "../../context/PageContext"
-import { useContext } from 'react'
+import Image from "next/image"
 import { IoLogoTwitter, IoLogoFacebook, IoLogoYoutube, IoLogoFlickr, IoLogoLinkedin, IoLogoInstagram, IoLogoRss } from "react-icons/io5"
-import BlockTitle from "./BlockTitle"
 
-export default function SoMeSidebarBlock() {
-    const { currentPageData } = useContext(PageContext)
-
-    const primaryColor = currentPageData?.primaryColor || 'var(--primary-hex)'
-    const backgroundColor = currentPageData?.backgroundColor || 'var(--background-hex)'
-
+export default function HeaderBar({ primaryColor, menuColor }) {
     const socialIcons = [
         {
             icon: <IoLogoTwitter />,
@@ -26,7 +17,7 @@ export default function SoMeSidebarBlock() {
             href: 'https://www.youtube.com/user/NoahDK',
         },
         {
-            icon: <IoLogoFlickr />,
+            icon: <IoLogoFlickr  />,
             href: 'https://www.flickr.com/photos/noahdk',
         },
         {
@@ -40,28 +31,31 @@ export default function SoMeSidebarBlock() {
     ]
 
     return (
-        <div className="some-sidebar-widget" style={{ borderColor: primaryColor }}>
-            <div 
-                className="flex flex-col"
-                style={{ borderColor: primaryColor}}
-            >
-                <BlockTitle title="Sociale medier" />
+        <div className="header-bar h-20 px-16 z-10 relative">
 
-                {/* <h5 className="text-lg font-medium mb-8 leading-none px-8 border-l-4 h-6 flex items-center" style={{ borderColor: primaryColor }}>Social medier</h5> */}
-                <div className="grid grid-cols-3 gap-px ">
+            <div className="flex justify-between items-center max-w-screen-3xl w-full h-full mx-auto">
+                <span className="font-semibold text-xl">Om Noah</span>
+
+                <div className="flex items-center">
+                    <span 
+                        className="mr-6 font-medium"
+                    >
+                        Follow </span>
                     {socialIcons.map((icon, index) => (
                         <div key={index} className="">
                             <Link 
                                 href={icon.href} 
-                                className="flex items-center justify-center aspect-square text-[24px]"
-                                style={{ color: backgroundColor, backgroundColor: primaryColor }}
+                                className="flex items-center justify-center aspect-square text-[24px] h-10 w-10" 
+                               
                             >
                                     {icon.icon}
                             </Link>
                         </div>
-                    ))}                    
+                    ))}
+                        
                 </div>
             </div>
+            
         </div>
     )
 }

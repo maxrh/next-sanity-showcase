@@ -131,7 +131,13 @@ export async function getPageSettings(slug) {
             pageSettings {
                 showInMenu,
                 pageLayout
-            }
+            },
+            pageColors {
+                themeselector,
+                menuColor { hex },
+                primaryColor { hex },
+                backgroundColor { hex },
+            },
         }`, { cache: 'no-store' })
 }
 
@@ -144,6 +150,5 @@ export async function getSubPages(slug) {
                     current
                 }
             },
-        }`
-    )
+        }`, { cache: 'no-store' })
 }

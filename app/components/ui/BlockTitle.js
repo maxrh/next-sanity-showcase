@@ -34,10 +34,10 @@ export default function BlockTitle({ title, subtitle, href, style, id }) {
                         style={{ backgroundColor: primaryColor }} 
                     ></span> */}
                 </Link>
-                 <span 
-                    className='w-[calc(100%+4rem)] h-px bg-gray-200/20 absolute bottom-0 -left-16 -z-10' 
+                 {/* <span 
+                    className='w-[calc(100%+4rem)] h-px bg-emerald-300/50 absolute bottom-0 -left-16 -z-10' 
                     // style={{ backgroundColor: primaryColor }} 
-                ></span>
+                ></span> */}
             </div>
         ) 
     )
