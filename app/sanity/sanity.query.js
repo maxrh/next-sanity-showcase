@@ -92,6 +92,8 @@ export async function getPages() {
     )
 }
 
+
+
 export async function getMenuItems() {
     return client.fetch(
         groq`*[_type == "pages" && pageSettings.showInMenu == true] {
@@ -111,8 +113,37 @@ export async function getMenuItems() {
     )
 }
 
-export async function getCurrentPage(slug) {
+export async function getPage(slug) {
     return await client.fetch(
-        groq`*[_type == "pages" && metadata.slug.current == "${slug}"][0]`
+        groq`*[_type == "pages" && metadata.slug.current == "${slug}"][0]`, { cache: 'no-store' })
+}
+
+export async function getPageSettings(slug) {
+    return await client.fetch(
+        groq`*[_type == "pages" && metadata.slug.current == "${slug}"][0] {
+            content {
+                header,
+                featuredImage {
+                    alt,
+                    "imageUrl": asset->url
+                }
+            },
+            pageSettings {
+                showInMenu,
+                pageLayout
+            }
+        }`, { cache: 'no-store' })
+}
+
+export async function getSubPages(slug) {
+    return client.fetch(
+        groq`*[_type == "pages" && metadata.slug.current match "${slug}"] {
+            metadata {
+                title,
+                slug { 
+                    current
+                }
+            },
+        }`
     )
 }

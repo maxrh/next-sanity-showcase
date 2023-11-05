@@ -23,7 +23,6 @@ const PageContextProvider = ({ serverCurrentPage, children }) => {
     const { data, error } = useSWR(PAGE_LAYOUT_QUERY, sanityFetcher)
     if (error) {console.log('error', error)}
     
-
     useEffect(() => {
         if (!localStorage.getItem('pageData') && data) {
             const pageData = data.map(item => {
@@ -55,7 +54,7 @@ const PageContextProvider = ({ serverCurrentPage, children }) => {
             <div 
                 className={`page-container transition-colors duration-500 ease-in-out bg-background ${currentPageData?.theme}`}
                 style={{ 
-                    backgroundColor: currentPageData?.backgroundColor?.hex || (currentPageData?.theme === 'dark' ? 'var(--foreground-hex-static)' : 'var(--background-hex-static)'),
+                    backgroundColor: currentPageData?.backgroundColor || (currentPageData?.theme === 'dark' ? 'var(--foreground-hex-static)' : 'var(--background-hex-static)'),
                     color: currentPageData?.theme === 'dark' ?  'var(--background-hex-static)' : 'var(--foreground-hex-static)' ,
                 }}
             >

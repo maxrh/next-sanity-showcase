@@ -1,5 +1,6 @@
 "use client"
 
+import clsx from "clsx"
 import { MENU_ITEMS_QUERY, sanityFetcher } from "@/app/sanity/sanity.query"
 import { PageContext } from "@/app/context/PageContext"
 import { useContext } from "react"
@@ -57,8 +58,10 @@ export default function MainNav() {
                 >
                        {data.map((item, index) => {
                             const isActivePath = activeItem === item
-                            const activeClasses = isActivePath ? 'opacity-100 translate-y-8' : 'opacity-0 -translate-y-12 group-hover:-translate-y-7 group-hover:opacity-100'
-
+                            const activeClasses = clsx({
+                                'opacity-100 translate-y-8': isActivePath,
+                                'opacity-0 -translate-y-12 group-hover:-translate-y-7 group-hover:opacity-100': !isActivePath
+                            });
                             return (
                                                     
                                 <motion.div 

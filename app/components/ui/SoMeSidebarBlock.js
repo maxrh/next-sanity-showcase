@@ -1,5 +1,7 @@
+"use client"
+
 import Link from "next/link"
-import { PageContext } from "../context/PageContext"
+import { PageContext } from "../../context/PageContext"
 import { useContext } from 'react'
 import { IoLogoTwitter, IoLogoFacebook, IoLogoYoutube, IoLogoFlickr, IoLogoLinkedin, IoLogoInstagram, IoLogoRss } from "react-icons/io5"
 import BlockTitle from "./BlockTitle"

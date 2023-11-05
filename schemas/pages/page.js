@@ -106,6 +106,12 @@ export default {
                                 validation: (rule) => rule.required(),
                             },
                             {
+                                name: "imageCaption",
+                                type: "string",
+                                title: "Image Caption",
+                                description: "Appears below the image.",
+                            },
+                            {
                                 name: "imageDescription",
                                 type: "string",
                                 title: "Description",
@@ -113,20 +119,12 @@ export default {
                                 validation: (rule) => rule.required(),
                             },
                             {
-                                name: "imageWidth",
-                                type: "number",
-                                title: "Image Size",
-                                description:
-                                    "Pixel width of the image, leave empty for auto scaling.",
-                                validation: (rule) => rule.max(5000).min(10),
-                            },
-                            {
-                                name: "wrapText",
+                                name: "fullWidth",
                                 type: "boolean",
-                                title: "Wrap Text",
-                                description: "Wrap text around the image.",
+                                title: "Full Width",
+                                description: "Display the image at full width.",
                                 initialValue: false,
-                            },
+                            }, 
                         ],
                     },
                 {

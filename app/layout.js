@@ -4,7 +4,7 @@ import { headers } from "next/headers"
 import PageContextProvider from './context/PageContext'
 import SiteHeader from './components/SiteHeader'
 import SiteFooter from './components/SiteFooter'
-import { getCurrentPage } from './sanity/sanity.query'
+import { getPage } from './sanity/sanity.query'
 
 const ibmplex = IBMPlex({ 
     src: '/fonts/IBM_Plex_Sans_Var-Roman.woff2',
@@ -28,7 +28,7 @@ export default async function RootLayout({ children }) {
     const headersList = headers()
     const pathname = headersList.get('x-url') || ""
     const isStudioRoute = pathname.startsWith('/studio')
-    const serverCurrentPage = await getCurrentPage(pathname)
+    const serverCurrentPage = await getPage(pathname)
     
     if (isStudioRoute) { return <html lang="en"><body>{children}</body></html> }
 
