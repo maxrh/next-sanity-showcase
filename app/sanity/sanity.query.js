@@ -11,6 +11,8 @@ export const pathSanityFetcher = async ({ query, basePath }) => {
     return response;
 }
 
+// fetch subpages for menu, item with basepath should be first
+
 export const SUBPAGES_QUERY = groq`
   *[_type == "pages" && metadata.slug.current match $basePath] {
         metadata {
@@ -19,7 +21,7 @@ export const SUBPAGES_QUERY = groq`
                 current
             }
         },
-    }
+    } | order(metadata.slug.current asc)
 `;
 
 export const MENU_ITEMS_QUERY = groq`*[_type == "pages" && pageSettings.showInMenu == true] {

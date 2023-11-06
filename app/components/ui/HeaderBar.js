@@ -1,8 +1,10 @@
 import Link from "next/link"
 import Image from "next/image"
 import { IoLogoTwitter, IoLogoFacebook, IoLogoYoutube, IoLogoFlickr, IoLogoLinkedin, IoLogoInstagram, IoLogoRss } from "react-icons/io5"
+import Breadcrumb from "./Breadcrumb"
+import CTAButtons from "./CTAButtons"
 
-export default function HeaderBar({ primaryColor, menuColor }) {
+export default function HeaderBar({ pageColors }) {
     const socialIcons = [
         {
             icon: <IoLogoTwitter />,
@@ -30,13 +32,20 @@ export default function HeaderBar({ primaryColor, menuColor }) {
         }
     ]
 
+
     return (
         <div className="header-bar h-20 px-16 z-10 relative">
 
             <div className="flex justify-between items-center max-w-screen-3xl w-full h-full mx-auto">
-                <span className="font-semibold text-xl">Om Noah</span>
+                <div className="flex items-center font-semibold text-2xl ">
+                    <Breadcrumb />
+                </div>
 
                 <div className="flex items-center">
+                    {/* <CTAButtons pageColors={pageColors} /> */}
+                </div>
+
+                {/* <div className="flex items-center">
                     <span 
                         className="mr-6 font-medium"
                     >
@@ -53,7 +62,7 @@ export default function HeaderBar({ primaryColor, menuColor }) {
                         </div>
                     ))}
                         
-                </div>
+                </div> */}
             </div>
             
         </div>

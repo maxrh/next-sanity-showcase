@@ -13,11 +13,11 @@ export default function NavSidebarBlock() {
     const { data, error } = useSWR(basePath, (path) => pathSanityFetcher({ query: SUBPAGES_QUERY, basePath: path }))
     if (error) return <div>failed to load</div>
 
-
     const subPages = data?.filter(page => page.metadata.slug.current !== basePath)
 
     const menuColor = currentPageData?.menuColor || 'var(--foreground-hex)'
     const primaryColor = currentPageData?.primaryColor || 'var(--primary-hex)'
+    const backgroundColor = currentPageData?.backgroundColor || 'var(--background-hex)'
 
     return (
         <motion.div 
@@ -26,25 +26,26 @@ export default function NavSidebarBlock() {
             animate={{ opacity: 1 }}
         >
             <ul className="flex flex-col">
-                {subPages && subPages.map((item, index) => (
-                    <NavItem key={index} item={item} slug={currentPageData.slug} level={0} primaryColor={primaryColor} menuColor={menuColor}/>
+                {data && data.map((item, index) => (
+                    <NavItem key={index} item={item} slug={currentPageData.slug} level={0} primaryColor={primaryColor} menuColor={menuColor} backgroundColor={backgroundColor}/>
                 ))}
             </ul>
         </motion.div>
     )
 }
 
-function NavItem({ item, slug, level, primaryColor, menuColor }) {
+function NavItem({ item, slug, level, primaryColor, menuColor, backgroundColor }) {
     return (
-        <li className="">
+        <li className="mb-1">
 
                 <Link 
                     href={item.metadata.slug.current} 
-                    className={`relative flex items-center pb-3 xl:text-lg leading-none tracking-wide  ${slug === item.metadata.slug.current ? "font-medium" : "font-normal"}`}
-                    style={{ color: slug === item.metadata.slug.current ? primaryColor : '' }}
+                    className={`relative inline-flex items-center  font-semibold leading-none  h-10 px-3 pb-1 border-gray-200/10 ${slug === item.metadata.slug.current ? "" : ""}`}
+                    // style={{ color: slug === item.metadata.slug.current ? primaryColor : '' }}
+                    style={{ backgroundColor: primaryColor, color: backgroundColor  }}
                 >
                     <span className=" shrink-0 ">{item.metadata.title}</span>
-                    {slug === item.metadata.slug.current && (
+                    {/* {slug === item.metadata.slug.current && (
                         <div className="ml-6 w-full border-r-4 border-primary flex items-center" style={{ borderColor: primaryColor }}>
                             <span className={` border-b h-[5px] border-dashed border-slate-500 w-full mb-1`} />
                             <svg 
@@ -56,14 +57,14 @@ function NavItem({ item, slug, level, primaryColor, menuColor }) {
                                 style={{ fill: primaryColor }}
                             ><path d="M400-280v-400l200 200-200 200Z"/></svg>
                         </div>
-                    )}
+                    )} */}
                 </Link>
 
 
             {item.children && (
                 <ul className={`ml-4`}>
                     {item.children.map((child, index) => (
-                        <NavItem key={index} item={child} slug={slug} primaryColor={primaryColor} menuColor={menuColor} />
+                        <NavItem key={index} item={child} slug={slug} primaryColor={primaryColor} menuColor={menuColor}  backgroundColor={backgroundColor}/>
                     ))}
                 </ul>
             )}

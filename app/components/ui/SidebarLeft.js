@@ -15,8 +15,8 @@ export default async function SidebarLeft({ params }) {
 
 
     return (
-        <div className="sticky top-0 ">
-            <BlockTitle title={baseTitle}  href={basePath} />
+        <div className="sticky top-0 pt-6">
+            {/* <BlockTitle title={baseTitle}  href={basePath} /> */}
 
 
             <NavSidebarBlock />
